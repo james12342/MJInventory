@@ -1,0 +1,108 @@
+{% load static %}
+
+<body class="py-4">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
+     <div class="container">
+      
+       <img src = "{% static 'logo.jpg' %}" height="100" width="100" class="d-inline-block align-top">
+ 
+   <h1 class="Fontcenter" >Majestic Inventory</h1>
+   
+   <nav class="navbar navbar-expand-lg navbar-light bg-light " style="width: 100%;">
+     <div class="container-fluid">
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+     
+       <div class="collapse navbar-collapse" id="navbarTogglerDemo03" style="background-color:rgb(255, 99, 71);">
+         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+           <li class="nav-item">
+             <a class="nav-link active" aria-current="page" href="/inventory">Home</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="/customersku">Customers</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link disabled">Functions</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link " href="/api">API</a>
+           </li>
+         </ul>
+         
+       </div>
+     </div>
+   </nav>
+   <nav class="navbar navbar-expand-lg navbar-light bg-light"  >
+
+<div>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <h3>Filters</h3>
+      <form method="GET" action=".">
+
+        <select class="browser-default custom-select" aria-label="Default select example" style="width: 90%;">
+            <option selected>Select Customer</option>
+            {% for team1 in theCustomer.all %}
+    <option value={{ team1.CustomerName }}>{{ team1.CustomerName }}</option>
+{% endfor %}
+
+         
+          
+          <option value="2">Amazon Vendor central</option>
+          <option value="3">Walmart</option>
+          <option value="3">Kohls</option>
+          <option value="3">Chewy</option>
+          <option value="3">Wayfair</option>
+        </select>
+
+          <!-- <input type="search" name="SKU_contains" placeholder="Item search,SKU,ItemName...anything" aria-label="Search">
+          <button type="submit" class="btn btn-primary">Search</button> -->
+
+          <input type="text" name="LocalSku" placeholder="Item search,SKU,ItemName...anything" aria-label="Search"style="width: 90%;">
+          <button class="btn btn-outline-success" type="submit" name="submit" value="Search">Search</button>
+      </form>
+
+</div>
+
+
+<div class="row">
+<div class="row mb-3">
+  <div class="col-2 themed-grid-col">LocalSku</div>
+  <div class="col-2 themed-grid-col">CustomerName</div>
+  <div class="col-4 themed-grid-col">ItemName</div>
+  <div class="col-2 themed-grid-col">QtyOnHand</div>
+  <div class="col-2 themed-grid-col">Platform</div>
+  
+</div>
+
+{% for filter in queryset %}
+
+<div class="row mb-3">
+<div class="col-2 themed-grid-col">{{ filter.LocalSku.LocalSku }}</div>
+<div class="col-2 themed-grid-col">{{ filter.CustomerName }}</div>
+<div class="col-4 themed-grid-col">{{ filter.LocalSku.ItemName }}</div>
+<div class="col-2 themed-grid-col">{{ filter.LocalSku.QualityOnHold }}</div>
+<div class="col-2 themed-grid-col">{{ filter.Platform }}</div>
+</div>
+
+{% endfor %}
+</div>
+
+{% for team in theCustomerSKU.all %}
+<div class="row mb-3">
+  <div class="col-2 themed-grid-col">{{ team.LocalSku.LocalSku }}</div>
+  <div class="col-2 themed-grid-col">{{ team.CustomerName }}</div>
+  <div class="col-4 themed-grid-col">{{ team.LocalSku.ItemName }}</div>
+  <div class="col-2 themed-grid-col">{{ team.LocalSku.QualityOnHold }}</div>
+  <div class="col-2 themed-grid-col">{{ team.Platform }}</div>
+  
+</div>
+{% endfor %}
+
+
+
+
+
